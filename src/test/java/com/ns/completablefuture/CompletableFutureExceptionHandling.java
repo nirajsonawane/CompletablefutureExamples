@@ -50,7 +50,7 @@ public class CompletableFutureExceptionHandling {
 						 .thenApply(this::notifyBalance)
 						 .exceptionally(ex -> {
 							 System.out.println("Got Some Exception "+ex.getMessage());
-							 System.out.println("Returing some default value");
+							 System.out.println("Returning some default value");
 							 return 0;
 						 });		
 		Integer join = thenApply.join();
@@ -76,6 +76,17 @@ public class CompletableFutureExceptionHandling {
 							}
 							return ok;
 						});
+	
+	}
+	@Test
+	public void completableFutureWhenComplete()
+	{
+		System.out.println("completableFutureHandel");
+		CompletableFuture.supplyAsync(this::findAccountNumber)
+						 .thenApply(this::calculateBalance)						 
+						 .thenApply(this::notifyBalance)
+						 .whenComplete((i,t)->System.out.println("finally action"));		  	
+						 
 	
 	}
 

@@ -31,7 +31,7 @@ public class CompletableFutureAllOf {
 
 	//https://stackoverflow.com/a/30026710/320087
 	@Test
-	public void completableFutureThenCombine() {
+	public void completableFutureAllof() {		
 		List<CompletableFuture<String>> list = new ArrayList<>();
 
 		IntStream.range(0, 5).forEach(num -> {

@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Test;
 
-public class CompletableFutureThenAccept {
+public class CompletableFutureThenApply {
 	
 	public AtomicInteger someStateVaribale = new AtomicInteger(1);
 
@@ -30,19 +30,19 @@ public class CompletableFutureThenAccept {
 
 	
 
-	public void notify(String str) {
-		System.out.println(Thread.currentThread() + "Recived vlaue " + str);
-		someStateVaribale.set(100);
+	public Integer notify(String str) {
+		System.out.println(Thread.currentThread() + "Recived vlaue " + str);		
 		sleep(1);
+		return 1;
 	}
 
 	
 	@Test
-	public void completableFutureThenAccept() {
-		 CompletableFuture.supplyAsync(this::process)
-						 .thenAccept(this::notify)
+	public void completableFutureThenApply() {
+		 Integer notificationId = CompletableFuture.supplyAsync(this::process)
+						 .thenApply(this::notify)
 						 .join();		
-		assertEquals(100,someStateVaribale.get());	
+		assertEquals(new Integer(1),notificationId);	
 	}
 
 	

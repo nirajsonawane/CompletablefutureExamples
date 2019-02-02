@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,17 @@ import org.junit.jupiter.api.Test;
 public class SimpleCompletableFutureTest {
 
 	public AtomicInteger someStateVaribale = new AtomicInteger(1);
+	
+	@Test
+	void simpleComletedCompletableFuture() {
+		CompletableFuture<String> completableFuture = CompletableFuture.completedFuture("Some Value");		
+		assertTrue(completableFuture.isDone());
+		try {
+			assertEquals("Some Value", completableFuture.get());
+		} catch (ExecutionException | InterruptedException e) {
+			fail("No Exception expected");
+		}
+	}
 
 	@Test
 	void simpleCompletableFuture() {
@@ -40,6 +53,17 @@ public class SimpleCompletableFutureTest {
 			fail("No Exception expected");
 		}
 
+	}
+	
+	@Test
+	void completableFutureSupplyAsyncWithExecuto() {
+		ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(2);
+		CompletableFuture<String> supplyAsync = CompletableFuture.supplyAsync(this::processSomeData,newFixedThreadPool);
+		try {
+			assertEquals("Some Value", supplyAsync.get());
+		} catch (ExecutionException | InterruptedException e) {
+			fail("No Exception expected");
+		}
 	}
 
 	public void process() {
