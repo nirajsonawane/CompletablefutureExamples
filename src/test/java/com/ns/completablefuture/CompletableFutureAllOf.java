@@ -12,6 +12,12 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 
 public class CompletableFutureAllOf {
+	
+	
+	/*
+	 ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+        ses.scheduleAtFixedRate(()-> CompletableFuture.runAsync(() -> Main.process()),1,1, TimeUnit.SECONDS);
+	*/
 
 	public CompletableFuture<String> findSomeValue() {
 		return CompletableFuture.supplyAsync(() -> {
